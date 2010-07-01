@@ -133,13 +133,13 @@ public abstract class BaseBenchmark extends BaseGameActivity {
 			.append("Model: ").append(Build.MODEL).append("\n")
 			.append("Android-Version: ").append(Build.VERSION.RELEASE).append("\n")
 			.append("SDK: ").append(Build.VERSION.SDK).append("\n")
-			.append("Manufacturer: ").append(Build.MANUFACTURER).append("\n")
+//			.append("Manufacturer: ").append(Build.MANUFACTURER).append("\n") //TODO Add again when 1.6 is minimum
 			.append("Brand: ").append(Build.BRAND).append("\n")
 			.append("Build-ID: ").append(Build.ID).append("\n")
 			.append("Build: ").append(Build.DISPLAY).append("\n")
 			.append("Device: ").append(Build.DEVICE).append("\n")
 			.append("Product: ").append(Build.PRODUCT).append("\n")
-			.append("CPU-ABI: ").append(Build.CPU_ABI).append("\n")
+//			.append("CPU-ABI: ").append(Build.CPU_ABI).append("\n") //TODO Add again when 1.6 is minimum
 			.append("Board: ").append(Build.BOARD).append("\n")
 			.append("Fingerprint: ").append(Build.FINGERPRINT);
 		
