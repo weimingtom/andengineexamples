@@ -1,7 +1,5 @@
 package org.anddev.andengine.examples;
 
-import java.util.ArrayList;
-
 import org.anddev.andengine.engine.Engine;
 import org.anddev.andengine.engine.camera.Camera;
 import org.anddev.andengine.engine.options.EngineOptions;
@@ -10,15 +8,19 @@ import org.anddev.andengine.engine.options.resolutionpolicy.RatioResolutionPolic
 import org.anddev.andengine.entity.Scene;
 import org.anddev.andengine.entity.Scene.IOnSceneTouchListener;
 import org.anddev.andengine.entity.handler.runnable.RunnableHandler;
+import org.anddev.andengine.entity.primitives.Rectangle;
+import org.anddev.andengine.entity.shape.Shape;
 import org.anddev.andengine.entity.sprite.AnimatedSprite;
 import org.anddev.andengine.entity.util.FPSLogger;
 import org.anddev.andengine.extension.physics.box2d.entity.PhysicsConnector;
+import org.anddev.andengine.extension.physics.box2d.entity.PhysicsFactory;
 import org.anddev.andengine.opengl.texture.Texture;
 import org.anddev.andengine.opengl.texture.TextureOptions;
 import org.anddev.andengine.opengl.texture.region.TextureRegionFactory;
 import org.anddev.andengine.opengl.texture.region.TiledTextureRegion;
 import org.anddev.andengine.sensor.accelerometer.AccelerometerData;
 import org.anddev.andengine.sensor.accelerometer.IAccelerometerListener;
+import org.anddev.andengine.util.Debug;
 
 import android.hardware.SensorManager;
 import android.view.MotionEvent;
@@ -26,8 +28,6 @@ import android.widget.Toast;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 
@@ -54,12 +54,6 @@ public class PhysicsExample extends BaseExample implements IAccelerometerListene
 
 	private World mPhysicsWorld;
 	private int mFaceCount = 0;
-
-	/** our ground box **/
-	private Body groundBody;
-
-	/** our boxes **/
-	private final ArrayList<Body> boxes = new ArrayList<Body>();
 
 	private final RunnableHandler mRunnableHandler = new RunnableHandler();
 
@@ -99,33 +93,26 @@ public class PhysicsExample extends BaseExample implements IAccelerometerListene
 
 		// we instantiate a new World with a proper gravity vector
 		// and tell it to sleep when possible.
-		this.mPhysicsWorld = new World(new Vector2(0, 2 * SensorManager.GRAVITY_EARTH), true);
+		this.mPhysicsWorld = new World(new Vector2(0, 2 * SensorManager.GRAVITY_EARTH), false);
 
-		// next we create the body for the ground platform. It's
-		// simply a static body.
-		final BodyDef groundBodyDef = new BodyDef();
-		groundBodyDef.type = BodyType.StaticBody;
-		this.groundBody = this.mPhysicsWorld.createBody(groundBodyDef);
+		final Shape ground = new Rectangle(0, CAMERA_HEIGHT - 2, CAMERA_WIDTH, 2);
+		final Shape roof = new Rectangle(0, 0, CAMERA_WIDTH, 2);
+		final Shape left = new Rectangle(0, 0, 2, CAMERA_HEIGHT);
+		final Shape right = new Rectangle(CAMERA_WIDTH - 2, 0, 2, CAMERA_HEIGHT);
 
-		// next we create a static ground platform. This platform
-		// is not moveable and will not react to any influences from
-		// outside. It will however influence other bodies. First we
-		// create a PolygonShape that holds the form of the platform.
-		// it will be 100 meters wide and 2 meters high, centered
-		// around the origin
-		final PolygonShape groundPoly = new PolygonShape();
-		groundPoly.setAsBox(50, 1);
-
-		// finally we add a fixture to the body using the polygon
-		// defined above. Note that we have to dispose PolygonShapes
-		// and CircleShapes once they are no longer used. This is the
-		// only time you have to care explicitely for memomry managment.
-		this.groundBody.createFixture(groundPoly, 10);
-		groundPoly.dispose();
+		PhysicsFactory.createBoxBody(this.mPhysicsWorld, ground, BodyType.StaticBody);
+		PhysicsFactory.createBoxBody(this.mPhysicsWorld, roof, BodyType.StaticBody);
+		PhysicsFactory.createBoxBody(this.mPhysicsWorld, left, BodyType.StaticBody);
+		PhysicsFactory.createBoxBody(this.mPhysicsWorld, right, BodyType.StaticBody);
 
 		final Scene scene = new Scene(2);
 		scene.setBackgroundColor(0, 0, 0);
 		scene.setOnSceneTouchListener(this);
+
+		scene.getBottomLayer().addEntity(ground);
+		scene.getBottomLayer().addEntity(roof);
+		scene.getBottomLayer().addEntity(left);
+		scene.getBottomLayer().addEntity(right);
 
 		scene.registerPreFrameHandler(this.mPhysicsWorld);
 		scene.registerPreFrameHandler(this.mRunnableHandler);
@@ -134,32 +121,24 @@ public class PhysicsExample extends BaseExample implements IAccelerometerListene
 	}
 
 	private void addFace(final float pX, final float pY) {
+		final Scene scene = this.mEngine.getScene();
+		
 		this.mFaceCount++;
+		Debug.d("Faces: " + this.mFaceCount);
 
 		final AnimatedSprite face;
+		final Body body;
+		if(this.mFaceCount % 2 == 0) {
+			face = new AnimatedSprite(pX, pY, this.mBoxFaceTextureRegion);
+			body = PhysicsFactory.createBoxBody(this.mPhysicsWorld, face, BodyType.DynamicBody);
+		} else {
+			face = new AnimatedSprite(pX, pY, this.mCircleFaceTextureRegion);
+			body = PhysicsFactory.createCircleBody(this.mPhysicsWorld, face, BodyType.DynamicBody);
+		}
 
-		face = new AnimatedSprite(pX, pY, this.mBoxFaceTextureRegion);
-
-		final BodyDef boxBodyDef = new BodyDef();
-		boxBodyDef.type = BodyType.DynamicBody;
-		boxBodyDef.position.x = pX;
-		boxBodyDef.position.y = pY;
-
-		final Body boxBody = this.mPhysicsWorld.createBody(boxBodyDef);
-
-		final PolygonShape boxPoly = new PolygonShape();
-		boxPoly.setAsBox(16, 16);
-		boxBody.createFixture(boxPoly, 10);
-
-		// add the box to our list of boxes
-		this.boxes.add(boxBody);
-
-		boxPoly.dispose();
-
-		final Scene scene = this.mEngine.getScene();
-		face.animate(new long[] { 200, 200 }, 0, 1, true);
+		face.animate(200, true);
 		scene.getTopLayer().addEntity(face);
-		scene.registerPreFrameHandler(new PhysicsConnector(face, boxBody));
+		scene.registerPreFrameHandler(new PhysicsConnector(face, body));
 	}
 
 	public void onLoadComplete() {

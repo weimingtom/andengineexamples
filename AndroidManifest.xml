@@ -38,12 +38,9 @@
 		<activity android:name=".PathModifierExample" android:configChanges="orientation" />
 		<activity android:name=".PauseExample" android:configChanges="orientation" />
 		<activity android:name=".PhysicsExample" android:configChanges="orientation" />
-		<activity android:name=".PhysicsJumpExample" android:configChanges="orientation" />
-		<activity android:name=".PhysicsRemoveExample" android:configChanges="orientation" />
 		<activity android:name=".RectangleExample" android:configChanges="orientation" />
 		<activity android:name=".ShapeModifierExample" android:configChanges="orientation" />
 		<activity android:name=".SoundExample" android:configChanges="orientation" />
-		<activity android:name=".SplitScreenExample" android:configChanges="orientation" />
 		<activity android:name=".SpriteExample" android:configChanges="orientation" />
 		<activity android:name=".SpriteRemoveExample" android:configChanges="orientation" />
 		<activity android:name=".SubMenuExample" android:configChanges="orientation" />
@@ -58,7 +55,6 @@
 		
 		<activity android:name=".benchmark.AnimationBenchmark" android:configChanges="orientation" />
 		<activity android:name=".benchmark.ParticleSystemBenchmark" android:configChanges="orientation" />
-		<activity android:name=".benchmark.PhysicsBenchmark" android:configChanges="orientation" />
 		<activity android:name=".benchmark.ShapeModifierBenchmark" android:configChanges="orientation" />
 		<activity android:name=".benchmark.SpriteBenchmark" android:configChanges="orientation" />
 		<activity android:name=".benchmark.TickerTextBenchmark" android:configChanges="orientation" />
