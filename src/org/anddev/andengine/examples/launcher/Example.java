@@ -63,6 +63,7 @@ import org.anddev.andengine.examples.TMXTiledMapExample;
 import org.anddev.andengine.examples.TextExample;
 import org.anddev.andengine.examples.TextMenuExample;
 import org.anddev.andengine.examples.TextureOptionsExample;
+import org.anddev.andengine.examples.TexturePackerExample;
 import org.anddev.andengine.examples.TickerTextExample;
 import org.anddev.andengine.examples.TouchDragExample;
 import org.anddev.andengine.examples.UnloadResourcesExample;
@@ -154,6 +155,7 @@ enum Example {
 	TEXT(TextExample.class, R.string.example_text),
 	TEXTMENU(TextMenuExample.class, R.string.example_textmenu),
 	TEXTUREOPTIONS(TextureOptionsExample.class, R.string.example_textureoptions),
+	TEXTUREPACKER(TexturePackerExample.class, R.string.example_texturepacker),
 	TMXTILEDMAP(TMXTiledMapExample.class, R.string.example_tmxtiledmap),
 	TICKERTEXT(TickerTextExample.class, R.string.example_tickertext),
 	TOUCHDRAG(TouchDragExample.class, R.string.example_touchdrag),
