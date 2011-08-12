@@ -8,6 +8,7 @@ import org.anddev.andengine.engine.options.resolutionpolicy.RatioResolutionPolic
 import org.anddev.andengine.entity.scene.Scene;
 import org.anddev.andengine.entity.scene.background.ColorBackground;
 import org.anddev.andengine.entity.sprite.Sprite;
+import org.anddev.andengine.entity.sprite.batch.DynamicSpriteBatch;
 import org.anddev.andengine.entity.sprite.batch.SpriteBatch;
 import org.anddev.andengine.entity.util.FPSLogger;
 import org.anddev.andengine.opengl.texture.TextureOptions;
@@ -52,8 +53,8 @@ public class SpriteBatchExample extends BaseExample {
 
 	@Override
 	public Engine onLoadEngine() {
-		this.mCamera = new Camera(0, 0, CAMERA_WIDTH, CAMERA_HEIGHT);
-		return new Engine(new EngineOptions(true, ScreenOrientation.LANDSCAPE, new RatioResolutionPolicy(CAMERA_WIDTH, CAMERA_HEIGHT), this.mCamera));
+		this.mCamera = new Camera(0, 0, SpriteBatchExample.CAMERA_WIDTH, SpriteBatchExample.CAMERA_HEIGHT);
+		return new Engine(new EngineOptions(true, ScreenOrientation.LANDSCAPE, new RatioResolutionPolicy(SpriteBatchExample.CAMERA_WIDTH, SpriteBatchExample.CAMERA_HEIGHT), this.mCamera));
 	}
 
 	@Override
@@ -72,24 +73,25 @@ public class SpriteBatchExample extends BaseExample {
 		scene.setBackground(new ColorBackground(0.09804f, 0.6274f, 0.8784f));
 
 		/* Calculate the coordinates for the face, so its centered on the camera. */
-		final int centerX = (CAMERA_WIDTH - this.mFaceTextureRegion.getWidth()) / 2;
-		final int centerY = (CAMERA_HEIGHT - this.mFaceTextureRegion.getHeight()) / 2;
-		
-		final Sprite faceSprite1 = new Sprite(-50, 0, this.mFaceTextureRegion); 
+		final int centerX = (SpriteBatchExample.CAMERA_WIDTH - this.mFaceTextureRegion.getWidth()) / 2;
+		final int centerY = (SpriteBatchExample.CAMERA_HEIGHT - this.mFaceTextureRegion.getHeight()) / 2;
+
+		final Sprite faceSprite1 = new Sprite(-50, 0, this.mFaceTextureRegion);
 		final Sprite faceSprite2 = new Sprite(50, 0, this.mFaceTextureRegion);
-		
+
 		faceSprite1.setScale(2);
 		faceSprite2.setRotation(45);
 
 		/* Create the face and add it to the scene. */
-		final SpriteBatch dynamicSpriteBatch = new SpriteBatch(this.mBitmapTextureAtlas, 2) {
+		final SpriteBatch dynamicSpriteBatch = new DynamicSpriteBatch(this.mBitmapTextureAtlas, 2) {
 			@Override
-			public void onDrawSpriteBatch() {
+			protected boolean onUpdateSpriteBatch() {
 				this.draw(faceSprite1);
 				this.draw(faceSprite2);
+				return true;
 			}
 		};
-		
+
 		final SpriteBatch staticSpriteBatch = new SpriteBatch(this.mBitmapTextureAtlas, 2);
 		staticSpriteBatch.draw(this.mFaceTextureRegion, -50, 0, this.mFaceTextureRegion.getWidth(), this.mFaceTextureRegion.getHeight(), 2, 2);
 		staticSpriteBatch.draw(this.mFaceTextureRegion, 50, 0, this.mFaceTextureRegion.getWidth(), this.mFaceTextureRegion.getHeight(), 45);
@@ -97,7 +99,7 @@ public class SpriteBatchExample extends BaseExample {
 
 		dynamicSpriteBatch.setPosition(centerX, centerY - 50);
 		staticSpriteBatch.setPosition(centerX, centerY + 50);
-		
+
 		scene.attachChild(dynamicSpriteBatch);
 		scene.attachChild(staticSpriteBatch);
 

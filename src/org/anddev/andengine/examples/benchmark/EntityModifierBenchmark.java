@@ -25,6 +25,8 @@ import org.anddev.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlasTextur
 import org.anddev.andengine.opengl.texture.region.TextureRegion;
 import org.anddev.andengine.opengl.vertex.RectangleVertexBuffer;
 
+import android.opengl.GLES20;
+
 /**
  * (c) 2010 Nicolas Gramlich
  * (c) 2011 Zynga
@@ -96,8 +98,8 @@ public class EntityModifierBenchmark extends BaseBenchmark {
 		final Scene scene = new Scene();
 		scene.setBackground(new ColorBackground(0.09804f, 0.6274f, 0.8784f));
 
-		//		this.drawUsingSprites(scene);
-		//		this.drawUsingSpritesWithSharedVertexBuffer(scene);
+//		this.drawUsingSprites(scene);
+//		this.drawUsingSpritesWithSharedVertexBuffer(scene);
 		this.drawUsingSpriteBatch(scene);
 
 		return scene;
@@ -126,6 +128,7 @@ public class EntityModifierBenchmark extends BaseBenchmark {
 
 		for(int i = 0; i < SPRITE_COUNT; i++) {
 			final Sprite face = new Sprite((CAMERA_WIDTH - 32) * this.mRandom.nextFloat(), (CAMERA_HEIGHT - 32) * this.mRandom.nextFloat(), this.mFaceTextureRegion);
+			face.setBlendFunction(GLES20.GL_SRC_ALPHA, GLES20.GL_ONE_MINUS_SRC_ALPHA);
 			face.registerEntityModifier(faceEntityModifier.clone());
 
 			pScene.attachChild(face);
@@ -155,6 +158,7 @@ public class EntityModifierBenchmark extends BaseBenchmark {
 
 		for(int i = 0; i < SPRITE_COUNT; i++) {
 			final Sprite face = new Sprite((CAMERA_WIDTH - 32) * this.mRandom.nextFloat(), (CAMERA_HEIGHT - 32) * this.mRandom.nextFloat(), this.mFaceTextureRegion, sharedVertexBuffer);
+			face.setBlendFunction(GLES20.GL_SRC_ALPHA, GLES20.GL_ONE_MINUS_SRC_ALPHA);
 			face.registerEntityModifier(faceEntityModifier.clone());
 
 			pScene.attachChild(face);
@@ -186,6 +190,7 @@ public class EntityModifierBenchmark extends BaseBenchmark {
 		);
 
 		final SpriteGroup spriteGroup = new SpriteGroup(this.mBitmapTextureAtlas, SPRITE_COUNT);
+		spriteGroup.setBlendFunction(GLES20.GL_SRC_ALPHA, GLES20.GL_ONE_MINUS_SRC_ALPHA);
 		for(int i = 0; i < SPRITE_COUNT; i++) {
 			final Sprite face = new Sprite((CAMERA_WIDTH - 32) * this.mRandom.nextFloat(), (CAMERA_HEIGHT - 32) * this.mRandom.nextFloat(), this.mFaceTextureRegion);
 			face.registerEntityModifier(faceEntityModifier.clone());
