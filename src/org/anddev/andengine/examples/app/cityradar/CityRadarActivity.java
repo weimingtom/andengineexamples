@@ -127,8 +127,9 @@ public class CityRadarActivity extends BaseGameActivity implements IOrientationL
 		/* Init TextureRegions. */
 		this.mBuildableBitmapTextureAtlas = new BuildableBitmapTextureAtlas(512, 256, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
 
-		this.mRadarTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(this.mBuildableBitmapTextureAtlas, this, "gfx/radar.png");
-		this.mRadarPointTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(this.mBuildableBitmapTextureAtlas, this, "gfx/radarpoint.png");
+		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/");
+		this.mRadarTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(this.mBuildableBitmapTextureAtlas, this, "radar.png");
+		this.mRadarPointTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(this.mBuildableBitmapTextureAtlas, this, "radarpoint.png");
 
 		try {
 			this.mBuildableBitmapTextureAtlas.build(new BlackPawnTextureBuilder<IBitmapTextureAtlasSource, BitmapTextureAtlas>(1));

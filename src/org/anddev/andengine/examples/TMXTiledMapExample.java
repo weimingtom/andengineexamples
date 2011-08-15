@@ -80,7 +80,8 @@ public class TMXTiledMapExample extends BaseExample {
 	@Override
 	public void onLoadResources() {
 		this.mBitmapTextureAtlas = new BitmapTextureAtlas(128, 128, TextureOptions.DEFAULT);
-		this.mPlayerTextureRegion = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(this.mBitmapTextureAtlas, this, "gfx/player.png", 0, 0, 3, 4); // 72x128
+		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/");
+		this.mPlayerTextureRegion = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(this.mBitmapTextureAtlas, this, "player.png", 0, 0, 3, 4); // 72x128
 
 		this.mEngine.getTextureManager().loadTexture(this.mBitmapTextureAtlas);
 	}

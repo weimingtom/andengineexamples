@@ -84,8 +84,8 @@ public class XMLLayoutExample extends LayoutGameActivity {
 	@Override
 	public void onLoadResources() {
 		this.mBitmapTextureAtlas = new BitmapTextureAtlas(32, 32, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
-
-		this.mParticleTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(this.mBitmapTextureAtlas, this, "gfx/particle_point.png", 0, 0);
+		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/");
+		this.mParticleTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(this.mBitmapTextureAtlas, this, "particle_point.png", 0, 0);
 
 		this.mEngine.getTextureManager().loadTexture(this.mBitmapTextureAtlas);
 	}

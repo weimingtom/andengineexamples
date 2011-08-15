@@ -182,9 +182,10 @@ public class EaseFunctionExample extends BaseExample {
 		this.mEngine.getFontManager().loadFont(this.mFont);
 
 		/* The textures. */
+		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/");
 		this.mBitmapTextureAtlas = new BitmapTextureAtlas(256, 128, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
-		this.mNextTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(this.mBitmapTextureAtlas, this, "gfx/next.png", 0, 0);
-		this.mBadgeTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(this.mBitmapTextureAtlas, this, "gfx/badge.png", 97, 0);
+		this.mNextTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(this.mBitmapTextureAtlas, this, "next.png", 0, 0);
+		this.mBadgeTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(this.mBitmapTextureAtlas, this, "badge.png", 97, 0);
 
 		this.mEngine.getTextureManager().loadTexture(this.mBitmapTextureAtlas);
 	}

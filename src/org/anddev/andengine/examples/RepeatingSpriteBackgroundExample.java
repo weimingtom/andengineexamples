@@ -67,9 +67,10 @@ public class RepeatingSpriteBackgroundExample extends BaseExample {
 	@Override
 	public void onLoadResources() {
 		this.mBitmapTextureAtlas = new BitmapTextureAtlas(128, 128, TextureOptions.DEFAULT);
-		this.mPlayerTextureRegion = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(this.mBitmapTextureAtlas, this, "gfx/player.png", 0, 0, 3, 4);
+		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/");
+		this.mPlayerTextureRegion = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(this.mBitmapTextureAtlas, this, "player.png", 0, 0, 3, 4);
 
-		this.mGrassBackground = new RepeatingSpriteBackground(CAMERA_WIDTH, CAMERA_HEIGHT, this.mEngine.getTextureManager(), new AssetBitmapTextureAtlasSource(this, "gfx/background_grass.png"));
+		this.mGrassBackground = new RepeatingSpriteBackground(CAMERA_WIDTH, CAMERA_HEIGHT, this.mEngine.getTextureManager(), new AssetBitmapTextureAtlasSource(this, "background_grass.png"));
 
 		this.mEngine.getTextureManager().loadTexture(this.mBitmapTextureAtlas);
 	}

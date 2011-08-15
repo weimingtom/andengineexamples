@@ -98,7 +98,8 @@ public class LoadTextureExample extends BaseExample {
 
 	private void loadNewTexture() {
 		this.mBitmapTextureAtlas  = new BitmapTextureAtlas(32, 32, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
-		final TextureRegion faceTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(this.mBitmapTextureAtlas, this, "gfx/face_box.png", 0, 0);
+		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/");
+		final TextureRegion faceTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(this.mBitmapTextureAtlas, this, "face_box.png", 0, 0);
 
 		this.mEngine.getTextureManager().loadTexture(this.mBitmapTextureAtlas);
 

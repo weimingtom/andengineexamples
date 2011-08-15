@@ -89,7 +89,8 @@ public class SplitScreenExample extends BaseExample implements IAccelerometerLis
 	@Override
 	public void onLoadResources() {
 		this.mBitmapTextureAtlas = new BitmapTextureAtlas(64, 32, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
-		this.mBoxFaceTextureRegion = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(this.mBitmapTextureAtlas, this, "gfx/face_box_tiled.png", 0, 0, 2, 1); // 64x32
+		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/");
+		this.mBoxFaceTextureRegion = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(this.mBitmapTextureAtlas, this, "face_box_tiled.png", 0, 0, 2, 1); // 64x32
 		this.mEngine.getTextureManager().loadTexture(this.mBitmapTextureAtlas);
 	}
 

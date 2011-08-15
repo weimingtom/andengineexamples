@@ -14,6 +14,7 @@ import org.anddev.andengine.extension.texturepacker.opengl.texture.util.texturep
 import org.anddev.andengine.extension.texturepacker.opengl.texture.util.texturepacker.TexturePackLoader;
 import org.anddev.andengine.extension.texturepacker.opengl.texture.util.texturepacker.exception.TexturePackParseException;
 import org.anddev.andengine.opengl.texture.ITexture;
+import org.anddev.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlasTextureRegionFactory;
 import org.anddev.andengine.opengl.texture.region.TextureRegion;
 import org.anddev.andengine.opengl.texture.region.TextureRegionLibrary;
 import org.anddev.andengine.util.Debug;
@@ -61,7 +62,8 @@ public class TexturePackerExample extends BaseExample {
 	@Override
 	public void onLoadResources() {
 		try {
-			final TexturePack spritesheetTexturePack = new TexturePackLoader(this, "gfx/spritesheets/").loadFromAsset(this, "texturepackerexample.xml");
+			BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/");
+			final TexturePack spritesheetTexturePack = new TexturePackLoader(this, "spritesheets/").loadFromAsset(this, "texturepackerexample.xml");
 			this.mSpritesheetTexture = spritesheetTexturePack.getTexture();
 			this.mSpritesheetTextureRegionLibrary = spritesheetTexturePack.getTextureRegionLibrary();
 			this.mEngine.getTextureManager().loadTexture(this.mSpritesheetTexture);

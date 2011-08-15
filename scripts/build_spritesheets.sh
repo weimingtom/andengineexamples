@@ -5,7 +5,7 @@ TEXTUREPACKER_BINARY=/usr/local/bin/TexturePacker
 
 # Shared Spritesheet-Output-Definitions:
 SPRITESHEET_OUTPUT_DIRECTORY="../assets/gfx/spritesheets/"
-SPRITESHEET_OUTPUT_JAVAIDS_PACKAGE="org.anddev.andengine.example.spritesheets"
+SPRITESHEET_OUTPUT_JAVAIDS_PACKAGE="org.anddev.andengine.examples.spritesheets"
 SPRITESHEET_OUTPUT_JAVAIDS_DIRECTORY="../src/org/anddev/andengine/examples/spritesheets/"
 
 # Shared Spritesheet-Input-Definitions:
@@ -62,10 +62,14 @@ do
 		--no-trim \
 		--max-width 1024 \
 		--max-height 1024 \
+		--andengine-wraps clamp \
+		--andengine-wrapt clamp \
+		--andengine-minfilter linear \
+		--andengine-magfilter linear \
 		--data ${SPRITESHEET_OUTPUT_DIRECTORY}${SPRITESHEET_INPUT_DATA_ENTRY_FRAGMENT[1]}.xml \
-		--sheet ${SPRITESHEET_OUTPUT_DIRECTORY}${SPRITESHEET_INPUT_DATA_ENTRY_FRAGMENT[1]}.pvr.ccz
-		# --idfile ${SPRITESHEET_OUTPUT_JAVAIDS_DIRECTORY}${SPRITESHEET_INPUT_DATA_ENTRY_FRAGMENT[2]} \
-		# --package ${SPRITESHEET_OUTPUT_JAVAIDS_PACKAGE}
+		--sheet ${SPRITESHEET_OUTPUT_DIRECTORY}${SPRITESHEET_INPUT_DATA_ENTRY_FRAGMENT[1]}.pvr.ccz \
+		--andengine-java ${SPRITESHEET_OUTPUT_JAVAIDS_DIRECTORY}${SPRITESHEET_INPUT_DATA_ENTRY_FRAGMENT[2]} \
+		--andengine-packagename ${SPRITESHEET_OUTPUT_JAVAIDS_PACKAGE}
 	echo "#"
 	echo "# done."
 	echo "#########################################"
