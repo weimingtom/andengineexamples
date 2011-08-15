@@ -12,11 +12,11 @@ import org.anddev.andengine.entity.util.FPSLogger;
 import org.anddev.andengine.examples.spritesheets.TexturePackerExampleSpritesheet;
 import org.anddev.andengine.extension.texturepacker.opengl.texture.util.texturepacker.TexturePack;
 import org.anddev.andengine.extension.texturepacker.opengl.texture.util.texturepacker.TexturePackLoader;
+import org.anddev.andengine.extension.texturepacker.opengl.texture.util.texturepacker.TexturePackTextureRegionLibrary;
 import org.anddev.andengine.extension.texturepacker.opengl.texture.util.texturepacker.exception.TexturePackParseException;
 import org.anddev.andengine.opengl.texture.ITexture;
 import org.anddev.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlasTextureRegionFactory;
 import org.anddev.andengine.opengl.texture.region.TextureRegion;
-import org.anddev.andengine.opengl.texture.region.TextureRegionLibrary;
 import org.anddev.andengine.util.Debug;
 
 /**
@@ -39,7 +39,7 @@ public class TexturePackerExample extends BaseExample {
 
 	private Camera mCamera;
 	private ITexture mSpritesheetTexture;
-	private TextureRegionLibrary mSpritesheetTextureRegionLibrary;
+	private TexturePackTextureRegionLibrary mSpritesheetTexturePackTextureRegionLibrary;
 
 	// ===========================================================
 	// Constructors
@@ -65,7 +65,7 @@ public class TexturePackerExample extends BaseExample {
 			BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/");
 			final TexturePack spritesheetTexturePack = new TexturePackLoader(this, "spritesheets/").loadFromAsset(this, "texturepackerexample.xml");
 			this.mSpritesheetTexture = spritesheetTexturePack.getTexture();
-			this.mSpritesheetTextureRegionLibrary = spritesheetTexturePack.getTextureRegionLibrary();
+			this.mSpritesheetTexturePackTextureRegionLibrary = spritesheetTexturePack.getTexturePackTextureRegionLibrary();
 			this.mEngine.getTextureManager().loadTexture(this.mSpritesheetTexture);
 		} catch (final TexturePackParseException e) {
 			Debug.e(e);
@@ -79,7 +79,7 @@ public class TexturePackerExample extends BaseExample {
 		final Scene scene = new Scene();
 		scene.setBackground(new ColorBackground(0.09804f, 0.6274f, 0.8784f));
 
-		TextureRegion faceTextureRegion = this.mSpritesheetTextureRegionLibrary.get(TexturePackerExampleSpritesheet.FACE_BOX_ID);
+		TextureRegion faceTextureRegion = this.mSpritesheetTexturePackTextureRegionLibrary.get(TexturePackerExampleSpritesheet.FACE_BOX_ID);
 		/* Calculate the coordinates for the face, so its centered on the camera. */
 		final int centerX = (CAMERA_WIDTH - faceTextureRegion.getWidth()) / 2;
 		final int centerY = (CAMERA_HEIGHT - faceTextureRegion.getHeight()) / 2;
