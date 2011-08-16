@@ -32,7 +32,7 @@ public class AnimationBenchmark extends BaseBenchmark {
 	private static final int CAMERA_WIDTH = 720;
 	private static final int CAMERA_HEIGHT = 480;
 
-	private static final int SPRITE_COUNT = 150;
+	private static final int SPRITE_COUNT = 250;
 
 	// ===========================================================
 	// Fields
