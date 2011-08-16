@@ -78,7 +78,7 @@ public class AnimationBenchmark extends BaseBenchmark {
 	public Engine onLoadEngine() {
 		this.mCamera = new Camera(0, 0, CAMERA_WIDTH, CAMERA_HEIGHT);
 		final EngineOptions engineOptions = new EngineOptions(true, ScreenOrientation.LANDSCAPE, new RatioResolutionPolicy(CAMERA_WIDTH, CAMERA_HEIGHT), this.mCamera);
-		engineOptions.getRenderOptions().disableExtensionVertexBufferObjects();
+//		engineOptions.getRenderOptions().disableExtensionVertexBufferObjects();
 		return new Engine(engineOptions);
 	}
 
@@ -100,9 +100,9 @@ public class AnimationBenchmark extends BaseBenchmark {
 		final Scene scene = new Scene();
 		scene.setBackground(new ColorBackground(0.09804f, 0.6274f, 0.8784f));
 		
-//		this.drawUsingSprites(scene);
+		this.drawUsingSprites(scene);
 //		this.drawUsingSpritesWithSharedVertexBuffer(scene);
-		this.drawUsingSpriteBatch(scene); 
+//		this.drawUsingSpriteBatch(scene); 
 
 		return scene;
 	}
@@ -110,22 +110,22 @@ public class AnimationBenchmark extends BaseBenchmark {
 	private void drawUsingSprites(Scene pScene) {
 		for(int i = 0; i < SPRITE_COUNT; i++) {
 			/* Quickly twinkling face. */
-			final AnimatedSprite face = new AnimatedSprite(this.mRandom.nextFloat() * (CAMERA_WIDTH - 32), this.mRandom.nextFloat() * (CAMERA_HEIGHT - 32), this.mFaceTextureRegion.clone());
+			final AnimatedSprite face = new AnimatedSprite(this.mRandom.nextFloat() * (CAMERA_WIDTH - 32), this.mRandom.nextFloat() * (CAMERA_HEIGHT - 32), this.mFaceTextureRegion.deepCopy());
 			face.animate(50 + this.mRandom.nextInt(100));
 			pScene.attachChild(face);
 
 			/* Continuously flying helicopter. */
-			final AnimatedSprite helicopter = new AnimatedSprite(this.mRandom.nextFloat() * (CAMERA_WIDTH - 48), this.mRandom.nextFloat() * (CAMERA_HEIGHT - 48), this.mHelicopterTextureRegion.clone());
+			final AnimatedSprite helicopter = new AnimatedSprite(this.mRandom.nextFloat() * (CAMERA_WIDTH - 48), this.mRandom.nextFloat() * (CAMERA_HEIGHT - 48), this.mHelicopterTextureRegion.deepCopy());
 			helicopter.animate(new long[] { 50 + this.mRandom.nextInt(100), 50 + this.mRandom.nextInt(100) }, 1, 2, true);
 			pScene.attachChild(helicopter);
 
 			/* Snapdragon. */
-			final AnimatedSprite snapdragon = new AnimatedSprite(this.mRandom.nextFloat() * (CAMERA_WIDTH - 100), this.mRandom.nextFloat() * (CAMERA_HEIGHT - 60), this.mSnapdragonTextureRegion.clone());
+			final AnimatedSprite snapdragon = new AnimatedSprite(this.mRandom.nextFloat() * (CAMERA_WIDTH - 100), this.mRandom.nextFloat() * (CAMERA_HEIGHT - 60), this.mSnapdragonTextureRegion.deepCopy());
 			snapdragon.animate(50 + this.mRandom.nextInt(100));
 			pScene.attachChild(snapdragon);
 
 			/* Funny banana. */
-			final AnimatedSprite banana = new AnimatedSprite(this.mRandom.nextFloat() * (CAMERA_WIDTH - 32), this.mRandom.nextFloat() * (CAMERA_HEIGHT - 32), this.mBananaTextureRegion.clone());
+			final AnimatedSprite banana = new AnimatedSprite(this.mRandom.nextFloat() * (CAMERA_WIDTH - 32), this.mRandom.nextFloat() * (CAMERA_HEIGHT - 32), this.mBananaTextureRegion.deepCopy());
 			banana.animate(50 + this.mRandom.nextInt(100));
 			pScene.attachChild(banana);
 		}
@@ -147,22 +147,22 @@ public class AnimationBenchmark extends BaseBenchmark {
 		
 		for(int i = 0; i < SPRITE_COUNT; i++) {
 			/* Quickly twinkling face. */
-			final AnimatedSprite face = new AnimatedSprite(this.mRandom.nextFloat() * (CAMERA_WIDTH - 32), this.mRandom.nextFloat() * (CAMERA_HEIGHT - 32), this.mFaceTextureRegion.clone(), faceSharedVertexBuffer);
+			final AnimatedSprite face = new AnimatedSprite(this.mRandom.nextFloat() * (CAMERA_WIDTH - 32), this.mRandom.nextFloat() * (CAMERA_HEIGHT - 32), this.mFaceTextureRegion.deepCopy(), faceSharedVertexBuffer);
 			face.animate(50 + this.mRandom.nextInt(100));
 			pScene.attachChild(face);
 
 			/* Continuously flying helicopter. */
-			final AnimatedSprite helicopter = new AnimatedSprite(this.mRandom.nextFloat() * (CAMERA_WIDTH - 48), this.mRandom.nextFloat() * (CAMERA_HEIGHT - 48), this.mHelicopterTextureRegion.clone(), helicopterSharedVertexBuffer);
+			final AnimatedSprite helicopter = new AnimatedSprite(this.mRandom.nextFloat() * (CAMERA_WIDTH - 48), this.mRandom.nextFloat() * (CAMERA_HEIGHT - 48), this.mHelicopterTextureRegion.deepCopy(), helicopterSharedVertexBuffer);
 			helicopter.animate(new long[] { 50 + this.mRandom.nextInt(100), 50 + this.mRandom.nextInt(100) }, 1, 2, true);
 			pScene.attachChild(helicopter);
 
 			/* Snapdragon. */
-			final AnimatedSprite snapdragon = new AnimatedSprite(this.mRandom.nextFloat() * (CAMERA_WIDTH - 100), this.mRandom.nextFloat() * (CAMERA_HEIGHT - 60), this.mSnapdragonTextureRegion.clone(), snapdragonSharedVertexBuffer);
+			final AnimatedSprite snapdragon = new AnimatedSprite(this.mRandom.nextFloat() * (CAMERA_WIDTH - 100), this.mRandom.nextFloat() * (CAMERA_HEIGHT - 60), this.mSnapdragonTextureRegion.deepCopy(), snapdragonSharedVertexBuffer);
 			snapdragon.animate(50 + this.mRandom.nextInt(100));
 			pScene.attachChild(snapdragon);
 
 			/* Funny banana. */
-			final AnimatedSprite banana = new AnimatedSprite(this.mRandom.nextFloat() * (CAMERA_WIDTH - 32), this.mRandom.nextFloat() * (CAMERA_HEIGHT - 32), this.mBananaTextureRegion.clone(), bananaSharedVertexBuffer);
+			final AnimatedSprite banana = new AnimatedSprite(this.mRandom.nextFloat() * (CAMERA_WIDTH - 32), this.mRandom.nextFloat() * (CAMERA_HEIGHT - 32), this.mBananaTextureRegion.deepCopy(), bananaSharedVertexBuffer);
 			banana.animate(50 + this.mRandom.nextInt(100));
 			pScene.attachChild(banana);
 		}
@@ -172,22 +172,22 @@ public class AnimationBenchmark extends BaseBenchmark {
 		final SpriteGroup spriteGroup = new SpriteGroup(this.mBitmapTextureAtlas, 4 * SPRITE_COUNT);
 		for(int i = 0; i < SPRITE_COUNT; i++) {
 			/* Quickly twinkling face. */
-			final AnimatedSprite face = new AnimatedSprite(this.mRandom.nextFloat() * (CAMERA_WIDTH - 32), this.mRandom.nextFloat() * (CAMERA_HEIGHT - 32), this.mFaceTextureRegion.clone()); //, faceSharedVertexBuffer);
+			final AnimatedSprite face = new AnimatedSprite(this.mRandom.nextFloat() * (CAMERA_WIDTH - 32), this.mRandom.nextFloat() * (CAMERA_HEIGHT - 32), this.mFaceTextureRegion.deepCopy()); //, faceSharedVertexBuffer);
 			face.animate(50 + this.mRandom.nextInt(100));
 			spriteGroup.attachChild(face);
 
 			/* Continuously flying helicopter. */
-			final AnimatedSprite helicopter = new AnimatedSprite(this.mRandom.nextFloat() * (CAMERA_WIDTH - 48), this.mRandom.nextFloat() * (CAMERA_HEIGHT - 48), this.mHelicopterTextureRegion.clone()); //, helicopterSharedVertexBuffer);
+			final AnimatedSprite helicopter = new AnimatedSprite(this.mRandom.nextFloat() * (CAMERA_WIDTH - 48), this.mRandom.nextFloat() * (CAMERA_HEIGHT - 48), this.mHelicopterTextureRegion.deepCopy()); //, helicopterSharedVertexBuffer);
 			helicopter.animate(new long[] { 50 + this.mRandom.nextInt(100), 50 + this.mRandom.nextInt(100) }, 1, 2, true);
 			spriteGroup.attachChild(helicopter);
 
 			/* Snapdragon. */
-			final AnimatedSprite snapdragon = new AnimatedSprite(this.mRandom.nextFloat() * (CAMERA_WIDTH - 100), this.mRandom.nextFloat() * (CAMERA_HEIGHT - 60), this.mSnapdragonTextureRegion.clone()); //, snapdragonSharedVertexBuffer);
+			final AnimatedSprite snapdragon = new AnimatedSprite(this.mRandom.nextFloat() * (CAMERA_WIDTH - 100), this.mRandom.nextFloat() * (CAMERA_HEIGHT - 60), this.mSnapdragonTextureRegion.deepCopy()); //, snapdragonSharedVertexBuffer);
 			snapdragon.animate(50 + this.mRandom.nextInt(100));
 			spriteGroup.attachChild(snapdragon);
 
 			/* Funny banana. */
-			final AnimatedSprite banana = new AnimatedSprite(this.mRandom.nextFloat() * (CAMERA_WIDTH - 32), this.mRandom.nextFloat() * (CAMERA_HEIGHT - 32), this.mBananaTextureRegion.clone()); //, bananaSharedVertexBuffer);
+			final AnimatedSprite banana = new AnimatedSprite(this.mRandom.nextFloat() * (CAMERA_WIDTH - 32), this.mRandom.nextFloat() * (CAMERA_HEIGHT - 32), this.mBananaTextureRegion.deepCopy()); //, bananaSharedVertexBuffer);
 			banana.animate(50 + this.mRandom.nextInt(100));
 			spriteGroup.attachChild(banana);
 		}

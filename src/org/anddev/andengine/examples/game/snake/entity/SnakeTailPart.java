@@ -38,8 +38,7 @@ public class SnakeTailPart extends CellEntity implements Cloneable {
 	// Methods for/from SuperClass/Interfaces
 	// ===========================================================
 
-	@Override
-	protected SnakeTailPart clone() {
+	protected SnakeTailPart deepCopy() {
 		return new SnakeTailPart(this.mCellX, this.mCellY, this.getTextureRegion());
 	}
 

@@ -216,7 +216,7 @@ public class RacerGameActivity  extends BaseGameActivity {
 	private void initRacetrack() {
 		/* Straights. */
 		{
-			final TextureRegion racetrackHorizontalStraightTextureRegion = this.mRacetrackStraightTextureRegion.clone();
+			final TextureRegion racetrackHorizontalStraightTextureRegion = this.mRacetrackStraightTextureRegion.deepCopy();
 			racetrackHorizontalStraightTextureRegion.setWidth(3 * this.mRacetrackStraightTextureRegion.getWidth());
 
 			final TextureRegion racetrackVerticalStraightTextureRegion = this.mRacetrackStraightTextureRegion;
